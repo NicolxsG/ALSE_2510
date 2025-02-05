@@ -5,7 +5,7 @@
 int main(){
   double anterior, actual, constante;
   anterior = actual = 0.;
-      actual = sin(constante * i);
+      actual = sin(constante * 100);
 
   for(int i=0; i<100; i++){
     actual = sin(M_PI * 5 / 100 * i);
