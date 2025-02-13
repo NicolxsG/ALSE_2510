@@ -30,9 +30,12 @@ void cruces_cero( double (*f)(const double &), const double &xl, const double &x
 }
 
 int main(){
+  printf("Cruces por cero en primera función\n");
   cruces_cero(funeval, 0, 100); // En este caso se llama la función Sin(M_PI*x/20)
+  printf("Cruces por cero en segunda función\n");
   cruces_cero(funeval2, 0, 100);// En este otro a sin(x/10)+cos(3*x/100)
-  cruces_cero(funeval3, 0, 20); // En este caso se llama a la función Cos(M_Pi*x/25)
+  printf("Cruces por cero en el ejercicio tercera función\n");
+  cruces_cero(funeval3, 20, 80); // En este caso se llama a la función Cos(M_Pi*x/25)
 return 0;
 }
 
