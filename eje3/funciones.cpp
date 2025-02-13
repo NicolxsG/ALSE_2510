@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 
+double funeval3(const double &x ){
+	return cos(M_PI*x/25);
+
+
+}
 
 double funeval2( const double &x ){
   // El puntero que permite llegar a esta función tiene la forma
@@ -29,7 +34,8 @@ void cruces_cero( double (*f)(const double &), const double &xl, const double &x
 int main(){
   cruces_cero(funeval, 0, 100); // En este caso se llama la función Sin(M_PI*x/20)
   cruces_cero(funeval2, 0, 100);// En este otro a sin(x/10)+cos(3*x/100)
-  return 0;
+  cruces_cero(funeval3, 0, 20); // En este caso se llama a la función Cos(M_Pi*x/25)
+return 0;
 }
 
 
