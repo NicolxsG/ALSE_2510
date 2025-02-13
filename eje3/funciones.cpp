@@ -3,8 +3,6 @@
 
 double funeval3(const double &x ){
 	return cos(M_PI*x/25);
-
-
 }
 
 double funeval2( const double &x ){
