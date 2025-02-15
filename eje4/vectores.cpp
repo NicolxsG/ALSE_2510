@@ -22,8 +22,9 @@ double punto1( double *x, double *y, double *r, const int &cant ){
   // la suma de todos los valores del vector de resultados.
   double suma = 0.;
   for (int i = 0; i < cant; i++){
-     	*(r+i) = *(x+i) * *(y+i);
-     	suma += *(r+i);
+     	*r = *x * *y;
+     	suma += *r;
+	x++;y++;r++;
 	}
   return suma;
 }
