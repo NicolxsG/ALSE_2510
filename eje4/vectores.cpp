@@ -17,7 +17,6 @@ double punto2( const double x[], const double y[], double r[], const int &cant )
   return suma;
 }
 
-
 double punto1( double *x, double *y, double *r, const int &cant ){
   // En esta función se hace el producto elemento a elemento de los dos vectores y se devuelve
   // la suma de todos los valores del vector de resultados.
