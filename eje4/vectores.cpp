@@ -31,11 +31,13 @@ double punto1( double *x, double *y, double *r, const int &cant ){
 
 int main(){
   srand(time(0));
-  double v1[100]={3.}, v2[100], vres[100];
+  double v1[100], v2[100], vres[100];
 
-  for(int i=0; i<100;i++)
+  for(int i=0; i<100;i++){
+    v1[i] = 3.;
     v2[i] = 50 + rand() % 100;
-  cout << "v2[0] = " << v2[0] << endl;
+  }
+cout << "v2[0] = " << v2[0] << endl;
   cout << "La suma total con punto1 es: " <<  punto1(v1, v2, vres, 100) << endl;
   cout << "La suma total con punto2 es: " <<  punto2(v1, v2, vres, 100) << endl;
   cout << "La vector resultado es:" << endl;
