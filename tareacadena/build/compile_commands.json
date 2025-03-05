@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/jnicolas/Proyectos/ALSE_2510/tareacadena/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/clasificador.dir/clasificar.cpp.o -c /home/jnicolas/Proyectos/ALSE_2510/tareacadena/clasificar.cpp",
+  "file": "/home/jnicolas/Proyectos/ALSE_2510/tareacadena/clasificar.cpp",
+  "output": "CMakeFiles/clasificador.dir/clasificar.cpp.o"
+}
+]

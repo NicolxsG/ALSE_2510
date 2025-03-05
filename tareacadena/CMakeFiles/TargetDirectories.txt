@@ -1,0 +1,3 @@
+/home/jnicolas/Proyectos/ALSE_2510/eje5/CMakeFiles/clasificador.dir
+/home/jnicolas/Proyectos/ALSE_2510/eje5/CMakeFiles/edit_cache.dir
+/home/jnicolas/Proyectos/ALSE_2510/eje5/CMakeFiles/rebuild_cache.dir
