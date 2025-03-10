@@ -1,34 +1,42 @@
 #include <iostream>
-#include <string.h>
-#include <vector>
-#include <ctype.h>
+#include <cstring>
+#include <cstdlib>
 
 using namespace std;
 
-// Función para recorrer el polinomio y convertirlo a un vector de coeficientes
-vector<int> recorrerpolinomio(const char* polinomio) {
-    vector<int> coeficientes(100, 0); // Estoy asumiendo que el máximo coeficiente es 100
-    int i = 0, n = strlen(polinomio);
-    int signo = 1, coef = 0, exponente = 0;
+const int MAX_EXPONENTE = 100; // Máximo grado permitido
+
+// Función para recorrer el polinomio y convertirlo en un arreglo de coeficientes
+void recorrerpolinomio(const char* polinomio, int* coeficientes) {
+    memset(coeficientes, 0, MAX_EXPONENTE * sizeof(int)); // Inicializa el arreglo en 0
+    int i = 0, signo = 1, coef = 0, exponente = 0;
+    bool hayCoeficiente = false;
+    int n = strlen(polinomio);
 
     while (i < n) {
         switch (polinomio[i]) {
             case '-':
-                if (coef != 0 || exponente != 0) {
-                    coeficientes[exponente] = signo * coef;
-                    coef = 0; exponente = 0;
+                if (hayCoeficiente) {
+                    coeficientes[exponente] += signo * coef;
                 }
                 signo = -1;
+                coef = 0;
+                exponente = 0;
+                hayCoeficiente = false;
+                i++;
                 break;
             case '+':
-                if (coef != 0 || exponente != 0) {
-                    coeficientes[exponente] = signo * coef;
-                    coef = 0; exponente = 0;
+                if (hayCoeficiente) {
+                    coeficientes[exponente] += signo * coef;
                 }
                 signo = 1;
+                coef = 0;
+                exponente = 0;
+                hayCoeficiente = false;
+                i++;
                 break;
             case 'x':
-                if (coef == 0) coef = 1;
+                if (!hayCoeficiente) coef = 1;
                 exponente = 1;
                 i++;
                 if (i < n && polinomio[i] == '^') {
@@ -39,47 +47,41 @@ vector<int> recorrerpolinomio(const char* polinomio) {
                         i++;
                     }
                 }
+                hayCoeficiente = true;
                 break;
             default:
                 if (isdigit(polinomio[i])) {
-                    int num = 0;
+                    coef = 0;
                     while (i < n && isdigit(polinomio[i])) {
-                        num = num * 10 + (polinomio[i] - '0');
+                        coef = coef * 10 + (polinomio[i] - '0');
                         i++;
                     }
-                    if (exponente == 0) {
-                        coef = num;
-                    } else {
-                        exponente = num;
-                    }
+                    hayCoeficiente = true;
+                } else {
+                    i++;
                 }
                 break;
         }
-        i++;
     }
-    if (coef != 0 || exponente != 0) {
-        coeficientes[exponente] = signo * coef;
+    if (hayCoeficiente) {
+        coeficientes[exponente] += signo * coef;
     }
-    return coeficientes;
 }
 
-vector<int> SumarPolinomios(const vector<vector<int>>& polinomios) {
-    int gradoMax = 0;
-    for (const auto& polinomio : polinomios) {
-        gradoMax = max(gradoMax, (int)polinomio.size());
-    }
-    vector<int> resultado(gradoMax, 0);
-    for (const auto& polinomio : polinomios) {
-        for (int i = 0; i < polinomio.size(); i++) {
-            resultado[i] += polinomio[i];
+// Función para sumar polinomios
+void SumarPolinomios(int* resultado, int** polinomios, int numPolinomios) {
+    memset(resultado, 0, MAX_EXPONENTE * sizeof(int)); // Inicializa el resultado en 0
+    for (int i = 0; i < numPolinomios; i++) {
+        for (int j = 0; j < MAX_EXPONENTE; j++) {
+            resultado[j] += polinomios[i][j];
         }
     }
-    return resultado;
 }
 
-void imprimir(const vector<int>& polinomio) {
+// Función para imprimir el polinomio resultante
+void imprimir(const int* polinomio) {
     bool PrimerTermino = true;
-    for (int i = polinomio.size() - 1; i >= 0; i--) {
+    for (int i = MAX_EXPONENTE - 1; i >= 0; i--) {
         if (polinomio[i] != 0) {
             if (!PrimerTermino) {
                 cout << (polinomio[i] > 0 ? " + " : " - ");
@@ -102,21 +104,36 @@ void imprimir(const vector<int>& polinomio) {
     cout << endl;
 }
 
+// Programa principal
 int main(int argc, char** argv) {
     if (argc < 2) {
         cout << "Uso: ./sumapolinomios \"polinomio1\" \"polinomio2\" ... \"polinomioN\"" << endl;
         return 1;
     }
+
     cout << "He recibido " << argc - 1 << " polinomios" << endl;
-    vector<vector<int>> polinomios;
+
+    // Crear un arreglo de punteros para los polinomios
+    int* polinomios[argc - 1];
+
+    // Asignar memoria dinámica y llenar los coeficientes
     for (int i = 1; i < argc; i++) {
-        polinomios.push_back(recorrerpolinomio(argv[i]));
+        polinomios[i - 1] = new int[MAX_EXPONENTE];
+        recorrerpolinomio(argv[i], polinomios[i - 1]);
     }
 
-    vector<int> resultado = SumarPolinomios(polinomios);
+    // Crear arreglo para el resultado
+    int resultado[MAX_EXPONENTE];
+    SumarPolinomios(resultado, polinomios, argc - 1);
 
+    // Imprimir el resultado
     cout << "\nEl resultado de la suma es: ";
     imprimir(resultado);
+
+    // Liberar la memoria dinámica
+    for (int i = 0; i < argc - 1; i++) {
+        delete[] polinomios[i];
+    }
 
     return 0;
 }

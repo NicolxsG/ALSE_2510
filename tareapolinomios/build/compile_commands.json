@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/jnicolas/Proyectos/ALSE_2510/tareapolinomios/build",
+  "command": "/usr/bin/g++   -g -std=gnu++17 -o CMakeFiles/sumapolinomios.dir/main.cpp.o -c /home/jnicolas/Proyectos/ALSE_2510/tareapolinomios/main.cpp",
+  "file": "/home/jnicolas/Proyectos/ALSE_2510/tareapolinomios/main.cpp",
+  "output": "CMakeFiles/sumapolinomios.dir/main.cpp.o"
+}
+]
